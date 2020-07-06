@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 // pages
 import HomePage from "./pages/HomePage";
+import UserPage from "./pages/UserPage";
 
 // components
 import { GlobalStyle } from "./utils/globalStyles";
@@ -18,8 +19,11 @@ const Router = () => {
         <>
           <Navbar />
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <HomePage />
+            </Route>
+            <Route exact path="/users">
+              <UserPage />
             </Route>
           </Switch>
         </>
