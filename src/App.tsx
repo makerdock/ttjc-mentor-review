@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import { ContextProvider } from "./contexts";
 
 import "./tailwind.output.css";
+import DevListPage from "./pages/DevListPage";
 
 const Router = () => {
   return (
@@ -18,7 +19,10 @@ const Router = () => {
         <>
           <Navbar />
           <Switch>
-            <Route path="/">
+            <Route path="/developers">
+              <DevListPage />
+            </Route>
+            <Route path="/projects">
               <HomePage />
             </Route>
           </Switch>
