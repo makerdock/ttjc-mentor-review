@@ -1,15 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-const NavbarContainer = styled.div`
-  position: sticky;
-  top: 0;
-`;
 
 const Navbar = () => {
   return (
-    <NavbarContainer className="bg-indigo-800 p-6 ">
+    <div className="bg-indigo-800 p-6 sticky top-0">
       <div className="container mx-auto flex items-center justify-between flex-wrap ">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           <svg
@@ -62,7 +56,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </NavbarContainer>
+    </div>
   );
 };
 

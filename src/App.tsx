@@ -3,14 +3,14 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 // pages
 import HomePage from "./pages/HomePage";
+import DevListPage from "./pages/DevListPage";
 
 // components
-import { GlobalStyle } from "./utils/globalStyles";
 import Navbar from "./components/Navbar";
 import { ContextProvider } from "./contexts";
 
 import "./tailwind.output.css";
-import DevListPage from "./pages/DevListPage";
+import "./app.css";
 
 const Router = () => {
   return (
@@ -28,7 +28,6 @@ const Router = () => {
           </Switch>
         </>
       </BrowserRouter>
-      <GlobalStyle />
     </ContextProvider>
   );
 };
