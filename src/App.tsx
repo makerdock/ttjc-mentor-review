@@ -1,17 +1,15 @@
 import React from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 // pages
-import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 
 // components
 import { GlobalStyle } from "./utils/globalStyles";
 import Navbar from "./components/Navbar";
-import PrivateRoute from "./components/PrivateRoute";
-import LoginRoute from "./components/LoginRoute";
-
 import { ContextProvider } from "./contexts";
+
+import "./tailwind.output.css";
 
 const Router = () => {
   return (
@@ -20,12 +18,9 @@ const Router = () => {
         <>
           <Navbar />
           <Switch>
-            <LoginRoute path="/login">
-              <LoginPage />
-            </LoginRoute>
-            <PrivateRoute path="/">
+            <Route path="/">
               <HomePage />
-            </PrivateRoute>
+            </Route>
           </Switch>
         </>
       </BrowserRouter>
