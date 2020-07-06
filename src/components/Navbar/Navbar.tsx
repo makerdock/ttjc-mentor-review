@@ -53,12 +53,12 @@ const Navbar = () => {
             </Link>
           </div>
           <div>
-            <a
-              href="#"
+            <Link
+              to="/review"
               className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0"
             >
               Start review
-            </a>
+            </Link>
           </div>
         </div>
       </div>
