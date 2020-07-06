@@ -4,13 +4,14 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 // pages
 import HomePage from "./pages/HomePage";
 import UserPage from "./pages/UserPage";
+import DevListPage from "./pages/DevListPage";
 
 // components
-import { GlobalStyle } from "./utils/globalStyles";
 import Navbar from "./components/Navbar";
 import { ContextProvider } from "./contexts";
 
 import "./tailwind.output.css";
+import "./app.css";
 
 const Router = () => {
   return (
@@ -25,10 +26,15 @@ const Router = () => {
             <Route exact path="/users">
               <UserPage />
             </Route>
+            <Route path="/developers">
+              <HomePage />
+            </Route>
+            <Route path="/projects">
+              <DevListPage />
+            </Route>
           </Switch>
         </>
       </BrowserRouter>
-      <GlobalStyle />
     </ContextProvider>
   );
 };

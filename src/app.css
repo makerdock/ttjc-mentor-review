@@ -1,0 +1,9 @@
+:root {
+  --background: #f4f5f9;
+}
+
+body {
+  margin: 0;
+  font-family: "Martel Sans", sans-serif;
+  background-color: var(--background);
+}
