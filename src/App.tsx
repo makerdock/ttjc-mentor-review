@@ -20,10 +20,10 @@ const Router = () => {
           <Navbar />
           <Switch>
             <Route path="/developers">
-              <DevListPage />
+              <HomePage />
             </Route>
             <Route path="/projects">
-              <HomePage />
+              <DevListPage />
             </Route>
           </Switch>
         </>
