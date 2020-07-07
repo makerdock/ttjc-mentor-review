@@ -1,8 +1,8 @@
 import React from "react";
-import { UserContextProvider } from "./UserContext";
+import { DataContextProvider } from "./DataContext";
 
 // add your context from parent to child level here
-const contexts = [UserContextProvider].reverse();
+const contexts = [DataContextProvider].reverse();
 
 export const ContextProvider: React.FC = ({ children }) => {
   return (

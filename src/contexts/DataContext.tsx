@@ -2,23 +2,23 @@ import React, { useState, useContext, useEffect } from "react";
 import { RootObject } from "../utils/contracts";
 import { generateFinalJSON } from "../utils/githubFetcher";
 
-export interface User {
+export interface Data {
   id: string;
 }
 
-export interface UserState {
+export interface DataState {
   data: RootObject | null;
 }
 
-const UserContext = React.createContext<UserState | null>(null);
+const DataContext = React.createContext<DataState | null>(null);
 
-const UserCacheKey = "DATA_CACHE";
-const userCache = localStorage.getItem(UserCacheKey);
-const defaultUserData = (userCache && JSON.parse(userCache)) || null;
+const DataCacheKey = "DATA_CACHE";
+const dataCache = localStorage.getItem(DataCacheKey);
+const defaultDataData = (dataCache && JSON.parse(dataCache)) || null;
 
-export const UserContextProvider: React.FC = (props) => {
-  const [data, setData] = useState<RootObject | null>(defaultUserData || null);
-  const [loading, setLoading] = useState(!defaultUserData);
+export const DataContextProvider: React.FC = (props) => {
+  const [data, setData] = useState<RootObject | null>(defaultDataData || null);
+  const [loading, setLoading] = useState(!defaultDataData);
 
   const fetchData = async () => {
     try {
@@ -32,30 +32,30 @@ export const UserContextProvider: React.FC = (props) => {
     }
   };
   useEffect(() => {
-    if (!defaultUserData) {
+    if (!defaultDataData) {
       fetchData();
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(UserCacheKey, JSON.stringify(data));
+    localStorage.setItem(DataCacheKey, JSON.stringify(data));
   }, [data]);
 
   return (
-    <UserContext.Provider value={{ data }}>
+    <DataContext.Provider value={{ data }}>
       {loading ? <Loader /> : props.children}
-    </UserContext.Provider>
+    </DataContext.Provider>
   );
 };
 
-export const useUser = (): UserState => {
-  const userState = useContext<UserState | null>(UserContext);
+export const useData = (): DataState => {
+  const dataState = useContext<DataState | null>(DataContext);
 
-  if (!userState) {
+  if (!dataState) {
     throw new Error("The Provider is not present");
   }
 
-  return userState;
+  return dataState;
 };
 
 const Loader = () => {
