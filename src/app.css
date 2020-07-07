@@ -14,3 +14,16 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 1rem;
 }
+
+.utterances {
+  max-width: 100%;
+}
+
+.formatted a {
+  color: #434190;
+  text-decoration: underline;
+}
+
+.formatted p {
+  word-break: break-word;
+}

@@ -17,7 +17,7 @@ const dataCache = localStorage.getItem(DataCacheKey);
 const defaultDataData = (dataCache && JSON.parse(dataCache)) || null;
 
 export const DataContextProvider: React.FC = (props) => {
-  const [data, setData] = useState<RootObject | null>(defaultDataData || null);
+  const [data, setData] = useState<RootObject>(defaultDataData || null);
   const [loading, setLoading] = useState(!defaultDataData);
 
   const fetchData = async () => {

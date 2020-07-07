@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
+import ReactMarkdown from "react-markdown";
 
 type ProjectFilterType = "all" | "pending" | "done";
 const ProjectPage: React.FC = () => {
@@ -8,7 +9,7 @@ const ProjectPage: React.FC = () => {
   const [currentFilter, setCurrentFilter] = useState<ProjectFilterType>("all");
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto my-8">
       <div className="rounded overflow-hidden shadow-md px-4 py-8 bg-white">
         <div className="flex">
           <div className="w-1/3 text-center">
@@ -56,7 +57,10 @@ const ProjectPage: React.FC = () => {
                 {!!project.title?.length && (
                   <div className="text-xl font-bold mb-4">{project.title}</div>
                 )}
-                <div className="text-sm text-gray-600">{project.body}</div>
+                <ReactMarkdown
+                  className="text-sm text-gray-600 formatted"
+                  source={project.body}
+                />
               </div>
               <div className="flex mt-4 items-center">
                 <img
@@ -86,7 +90,10 @@ const ProjectPage: React.FC = () => {
                 {!!project.title?.length && (
                   <div className="text-xl font-bold mb-4">{project.title}</div>
                 )}
-                <div className="text-sm text-gray-600">{project.body}</div>
+                <ReactMarkdown
+                  className="text-sm text-gray-600 formatted"
+                  source={project.body}
+                />
               </div>
               <div className="flex mt-4 items-center">
                 <img
@@ -115,7 +122,11 @@ const ProjectPage: React.FC = () => {
                 {!!project.title?.length && (
                   <div className="text-xl font-bold mb-4">{project.title}</div>
                 )}
-                <div className="text-sm text-gray-600">{project.body}</div>
+
+                <ReactMarkdown
+                  className="text-sm text-gray-600 formatted"
+                  source={project.body}
+                />
               </div>
               <div className="flex mt-4 items-center">
                 <img
