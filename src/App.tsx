@@ -3,8 +3,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 // pages
 import HomePage from "./pages/HomePage";
-import UserPage from "./pages/UserPage";
 import DevListPage from "./pages/DevListPage";
+import ProjectPage from "./pages/ProjectPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
 
 // components
 import Navbar from "./components/Navbar";
@@ -23,14 +24,14 @@ const Router = () => {
             <Route exact path="/">
               <HomePage />
             </Route>
-            <Route exact path="/users">
-              <UserPage />
-            </Route>
             <Route path="/developers">
-              <HomePage />
+              <DevListPage />
             </Route>
             <Route path="/projects">
-              <DevListPage />
+              <ProjectPage />
+            </Route>
+            <Route path="/project/:id">
+              <ProjectDetailPage />
             </Route>
           </Switch>
         </>
