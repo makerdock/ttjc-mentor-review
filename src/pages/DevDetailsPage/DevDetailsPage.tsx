@@ -1,24 +1,30 @@
 import React from "react";
+import { useData } from "../../contexts/DataContext";
+import { useParams } from "react-router";
 
 interface DevDetailsPageProps {}
 const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
+  let { username } = useParams();
+
+  const { data } = useData();
+  const currUser = data?.allUsers.find((user) => user.login == username);
   return (
     <div className="py-8">
       <div className="bg-white rounded-lg p-6 container mx-auto shadow-md">
-        <div className="flex">
+        <div className="flex items-center">
           <img
             className="w-24 h-24 mr-6 rounded-full bg-indigo-800"
-            src=""
+            src={currUser?.avatarUrl}
             alt=""
           />
           <div className="flex-1">
-            <h3 className="text-xl">Utkarsh Bhimte</h3>
+            <h3 className="text-xl">{currUser?.name || currUser?.login}</h3>
             <a
               target="_blank"
-              href="https://github.com/utkarshbhimte"
+              href={`https://github.com/${currUser?.login}`}
               className="text-indigo-800"
             >
-              @utkarshbhimte
+              @{currUser?.login}
             </a>
           </div>
         </div>
