@@ -40,16 +40,10 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = (props) => {
         </div>
         <div style={{ width: "100%", margin: "auto" }}>
           <div className="border rounded mt-4 pt-8 pb-10 px-4">
-            <div className="text-xl">
-              Title:{" "}
-              <span>
-                Personal Blog: 🚀⚡️ Blazing fast blog built with GatsbyJS
-              </span>
+            <div className="text-xl text-center font-bold">
+              Personal Blog: 🚀⚡️ Blazing fast blog built with GatsbyJS
             </div>
-            <div className="text-xl">
-              Time: <span>5 days ago</span>
-            </div>
-            <div className="text-xl">Description: </div>
+            <div className="text-xl text-right">5 days ago</div>
             <ReactMarkdown
               source={`Hello Mentors,
 
