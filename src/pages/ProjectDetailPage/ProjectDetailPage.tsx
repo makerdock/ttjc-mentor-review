@@ -6,9 +6,9 @@ import ReactMarkdown from "react-markdown";
 interface ProjectDetailPageProps {}
 const ProjectDetailPage: React.FC<ProjectDetailPageProps> = (props) => {
   return (
-    <div style={{ width: "90%", margin: "auto" }}>
-      <div className="mt-8 bg-white rounded-lg p-6 container">
-        <div className="flex flex-row justify-between items-center">
+    <div className="my-8  container mx-auto">
+      <div className="rounded-lg shadow-md bg-white mb-4 py-6 px-8 ">
+        <div className="flex flex-row justify-between items-center ">
           <div className="flex flex-row items-center">
             <img
               className="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto md:mx-0 md:mr-6"
@@ -16,8 +16,8 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = (props) => {
               alt=""
             />
             <div>
-              <div className="text-xl text-center">Viral Sangani</div>
-              <div className="text-xs text-indigo-800 text-gray-700 text-center ">
+              <div className="text-xl">Viral Sangani</div>
+              <div className="text-sm text-indigo-800 text-gray-700">
                 <a
                   className="no-underline hover:underline focus:text-gray-900 hover:text-gray-900"
                   href="https://github.com/viral-sangani"
@@ -38,21 +38,25 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = (props) => {
             </Link>
           </div>
         </div>
-        <div style={{ width: "100%", margin: "auto" }}>
-          <div className="border rounded mt-4 pt-8 pb-10 px-4">
-            <div className="text-xl text-center font-bold">
+      </div>
+      <div className="container mx-auto">
+        <div className="border rounded mt-4 py-6 px-8  bg-white shadow-md">
+          <div className="flex justify-between items-center mb-6">
+            <div className="text-xl font-bold">
               Personal Blog: 🚀⚡️ Blazing fast blog built with GatsbyJS
             </div>
-            <div className="text-xl text-right">5 days ago</div>
-            <ReactMarkdown
-              source={`Hello Mentors,
+            <div className="text-sm text-gray-600 ">5 days ago</div>
+          </div>
+          <ReactMarkdown
+            className="text-gray-800 text-base"
+            source={`Hello Mentors,
 
 I have designed and developed a web application using:
 - [GatsbyJS](https://www.gatsbyjs.org/)
 - HTML5/CSS3
 - Hosted on serverless AWS S3/AWS CloudFront (CDN) and used AWS Lambda Functions.
 
-The blog is responsive with Like function similar to [Medium.com](https://medium.com/) and subscribes option created using AWS Lambda function. 
+The blog is responsive with Like function similar to [Medium.com](https://medium.com/) and subscribes option created using AWS Lambda function.
 
 The project is live @ [https://blog.viralsangani.me/](https://blog.viralsangani.me/)
 The [Github Link](https://github.com/viral-sangani/gatsby-blog)
@@ -61,9 +65,7 @@ The [Github Link](https://github.com/viral-sangani/gatsby-blog)
 
 ![Demo](https://raw.githubusercontent.com/viral-sangani/gatsby-blog/master/static/gatsby-blog-gif.gif)
 `}
-            />
-            <div className="text-lg"></div>
-          </div>
+          />
         </div>
       </div>
     </div>
