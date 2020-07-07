@@ -1,27 +1,49 @@
-import React, { useState, useContext } from "react";
-import firebase from "firebase";
-import { firestoreCollections } from "../utils/firebase";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import React, { useState, useContext, useEffect } from "react";
+import { RootObject } from "../utils/contracts";
+import { generateFinalJSON } from "../utils/githubFetcher";
 
 export interface User {
   id: string;
 }
 
 export interface UserState {
-  users: User[] | null;
+  data: RootObject | null;
 }
 
 const UserContext = React.createContext<UserState | null>(null);
 
-const UserCacheKey = "USER_CACHE";
+const UserCacheKey = "DATA_CACHE";
 const userCache = localStorage.getItem(UserCacheKey);
 const defaultUserData = (userCache && JSON.parse(userCache)) || null;
 
 export const UserContextProvider: React.FC = (props) => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [data, setData] = useState<RootObject | null>(defaultUserData || null);
+  const [loading, setLoading] = useState(!defaultUserData);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response: RootObject = await generateFinalJSON();
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (!defaultUserData) {
+      fetchData();
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(UserCacheKey, JSON.stringify(data));
+  }, [data]);
+
   return (
-    <UserContext.Provider value={{ users }}>
-      {props.children}
+    <UserContext.Provider value={{ data }}>
+      {loading ? <Loader /> : props.children}
     </UserContext.Provider>
   );
 };
@@ -34,4 +56,12 @@ export const useUser = (): UserState => {
   }
 
   return userState;
+};
+
+const Loader = () => {
+  return (
+    <div className="flex text-center justify-center items-center h-screen w-screen">
+      <span className="text-xl">Loading</span>
+    </div>
+  );
 };

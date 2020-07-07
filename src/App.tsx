@@ -1,8 +1,7 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 // pages
-import HomePage from "./pages/HomePage";
 import DevListPage from "./pages/DevListPage";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
@@ -13,6 +12,7 @@ import { ContextProvider } from "./contexts";
 
 import "./tailwind.output.css";
 import "./app.css";
+import DevDetailsPage from "./pages/DevDetailsPage";
 
 const Router = () => {
   return (
@@ -21,10 +21,10 @@ const Router = () => {
         <>
           <Navbar />
           <Switch>
-            <Route exact path="/">
-              <HomePage />
+            <Route path="/dev/:username">
+              <DevDetailsPage />
             </Route>
-            <Route path="/developers">
+            <Route exact path="/">
               <DevListPage />
             </Route>
             <Route path="/projects">
@@ -33,6 +33,8 @@ const Router = () => {
             <Route path="/project/:id">
               <ProjectDetailPage />
             </Route>
+
+            <Redirect to="/" />
           </Switch>
         </>
       </BrowserRouter>

@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 interface DevListPageProps {}
 const DevListPage: React.FC<DevListPageProps> = (props) => {
   return (
-    <div className="container my-12 mx-auto px-4 md:px-12">
+    <div className="container my-12 mx-auto">
       <div className="flex flex-wrap -mx-1 lg:-mx-4">
-        <Link to="/" className="px-1 w-full md:w-1/2 my-10 lg:px-4 lg:w-1/3">
+        <Link
+          to={`/dev/viral-sangani`}
+          className="px-1 w-full md:w-1/2 my-10 lg:px-4 lg:w-1/3"
+        >
           <div className="relative h-16 bg-white">
             <img
               style={{
@@ -20,7 +23,7 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
               alt=""
             />
           </div>
-          <article className="overflow-hidden rounded-lg shadow-lg bg-white">
+          <article className="overflow-hidden rounded-lg shadow-md bg-white">
             <div className="px-6 pb-4 bg-white">
               <div className="text-xl text-center">Viral Sangani</div>
               <div className="text-xs text-indigo-800 text-gray-700 text-center ">

@@ -5,7 +5,7 @@ interface ProjectPageProps {}
 const ProjectPage: React.FC<ProjectPageProps> = (props) => {
   return (
     <div className="container mx-auto mt-8">
-      <div className="rounded overflow-hidden shadow-lg px-4 py-8 bg-white">
+      <div className="rounded overflow-hidden shadow-md px-4 py-8 bg-white">
         <div className="flex">
           <div className="w-1/3 text-center">
             <span className="block text-3xl mb-2">32</span>
@@ -22,20 +22,13 @@ const ProjectPage: React.FC<ProjectPageProps> = (props) => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "1rem",
-        }}
-        className="mt-6"
-      >
+      <div className="card-grid mt-6">
         <Link
           to={{
             pathname: "/project/1234",
             state: { reviewMode: false },
           }}
-          className="rounded overflow-hidden shadow-lg px-4 py-8 bg-white"
+          className="rounded block shadow-md px-4 py-8 bg-white"
         >
           <div className="text-base">Project name</div>
         </Link>

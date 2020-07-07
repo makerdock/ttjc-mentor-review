@@ -13,12 +13,3 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
-
-// export const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-export const firestoreCollections = {
-  USERS: "user",
-};
-
-// export const db = firebase.firestore();
-// db.enablePersistence();

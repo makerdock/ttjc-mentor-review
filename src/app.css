@@ -7,3 +7,9 @@ body {
   font-family: "Martel Sans", sans-serif;
   background-color: var(--background);
 }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+}
