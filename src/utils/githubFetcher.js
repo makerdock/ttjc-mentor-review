@@ -209,6 +209,21 @@ function getReviewedData(projects) {
   });
 }
 
+function getProjects(array) {
+  array.forEach((item) => {
+    if (item.node.labels.edges.length > 0) {
+      item.node.labels.edges.map((label) => {
+        if (
+          label.node.name === "Feedback-pending" ||
+          label.node.name === "Reviewed-By-Mentor"
+        ) {
+          projects.push(item.node);
+        }
+      });
+    }
+  });
+}
+
 function getTotalCount(data) {
   totalCount = data.data.repositoryOwner.repository.issues.totalCount;
   while (totalCount > 0) {
@@ -220,24 +235,6 @@ function getTotalCount(data) {
 
 function getCursor(data) {
   return data.slice(-1)[0].cursor;
-}
-
-function getProjects(array) {
-  let i = 0;
-  array.forEach((item) => {
-    if (
-      regexProject.test(item.node.title) &&
-      item.node.author.login !== "tanaypratap"
-    ) {
-      item.node.title = item.node.title
-        .substring(item.node.title.lastIndexOf("]") + 1)
-        .trim();
-      if (item.node.title[0] === "-") {
-        item.node.title = item.node.title.substr(1).trim();
-      }
-      projects.push(item.node);
-    }
-  });
 }
 
 function getUsers(projects) {

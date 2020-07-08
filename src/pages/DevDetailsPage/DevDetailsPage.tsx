@@ -78,10 +78,6 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
               </Link>
             ))}
         </div>
-        <h2 className="mt-10 text-lg text-gray-600 mb-2">Blogs</h2>
-        <div className="card-grid">
-          <div className="bg-white rounded-lg p-6 shadow-md"></div>
-        </div>
       </div>
     </div>
   );
