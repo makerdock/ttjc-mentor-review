@@ -74,7 +74,7 @@ const Loader = () => {
           <div className="face"></div>
         </div>
       </div>
-      <div className="longfazers">
+      <div className="longfazers" style={{ overflow: "hidden" }}>
         <span></span>
         <span></span>
         <span></span>

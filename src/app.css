@@ -6,7 +6,6 @@ body {
   margin: 0;
   font-family: "Martel Sans", sans-serif;
   background-color: var(--background);
-  overflow: hidden;
 }
 
 .card-grid {
@@ -42,7 +41,6 @@ body {
 }
 
 .body {
-  /* background-color: #434190; */
   position: absolute;
   top: 50%;
   margin-left: -50px;
