@@ -20,6 +20,7 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
           })
           .map((user) => (
             <Link
+              key={user.id}
               to={`/dev/${user.login}`}
               className="px-1 w-full md:w-1/2 my-10 lg:px-4 lg:w-1/3"
             >

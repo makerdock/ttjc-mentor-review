@@ -59,9 +59,32 @@ export const useData = (): DataState => {
 };
 
 const Loader = () => {
+  document.documentElement.style.setProperty("--background", "#434190");
   return (
-    <div className="flex text-center justify-center items-center h-screen w-screen">
-      <span className="text-xl">Loading</span>
-    </div>
+    <React.Fragment>
+      <div className="body">
+        <span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <div className="base">
+          <span></span>
+          <div className="face"></div>
+        </div>
+      </div>
+      <div className="longfazers">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <h1 className="loader-text">Loading...</h1>
+    </React.Fragment>
+
+    // <div className="flex text-center justify-center items-center h-screen w-screen">
+    //   <span className="text-xl">Loading</span>
+    // </div>
   );
 };

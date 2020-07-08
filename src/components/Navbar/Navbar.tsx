@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  document.documentElement.style.setProperty("--background", "#f4f5f9");
   return (
     <div className="bg-indigo-800 p-6 sticky top-0 z-10">
       <div className="container mx-auto flex items-center justify-between flex-wrap ">
