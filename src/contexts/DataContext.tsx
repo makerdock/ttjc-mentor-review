@@ -82,9 +82,5 @@ const Loader = () => {
       </div>
       <h1 className="loader-text">Loading...</h1>
     </React.Fragment>
-
-    // <div className="flex text-center justify-center items-center h-screen w-screen">
-    //   <span className="text-xl">Loading</span>
-    // </div>
   );
 };

@@ -44,102 +44,117 @@ const ProjectPage: React.FC = () => {
       >
         {currentFilter == "all" &&
           data?.allProjects &&
-          Object.values(data?.allProjects).map((project) => (
-            <Link
-              key={project.id}
-              to={{
-                pathname: `/project/${project.number}`,
-                state: { reviewMode: false },
-              }}
-              className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-            >
-              <div>
-                {!!project.title?.length && (
-                  <div className="text-xl font-bold mb-4">{project.title}</div>
-                )}
-                <ReactMarkdown
-                  className="text-sm text-gray-600 formatted"
-                  source={project.body}
-                />
-              </div>
-              <div className="flex mt-4 items-center">
-                <img
-                  src={project.author.avatarUrl}
-                  alt={project.author.name || project.author.login}
-                  className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                />
-                <div className="text-base flex-1">
-                  {project.author.name || project.author.login}
+          Object.values(data?.allProjects)
+            .slice(0)
+            .reverse()
+            .map((project) => (
+              <Link
+                key={project.id}
+                to={{
+                  pathname: `/project/${project.number}`,
+                  state: { reviewMode: false },
+                }}
+                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
+              >
+                <div>
+                  {!!project.title?.length && (
+                    <div className="text-xl font-bold mb-4">
+                      {project.title}
+                    </div>
+                  )}
+                  <ReactMarkdown
+                    className="text-sm text-gray-600 formatted"
+                    source={project.body}
+                  />
                 </div>
-              </div>
-            </Link>
-          ))}
+                <div className="flex mt-4 items-center">
+                  <img
+                    src={project.author.avatarUrl}
+                    alt={project.author.name || project.author.login}
+                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+                  />
+                  <div className="text-base flex-1">
+                    {project.author.name || project.author.login}
+                  </div>
+                </div>
+              </Link>
+            ))}
 
         {currentFilter == "pending" &&
           data?.allNotReviewedProjects &&
-          Object.values(data?.allNotReviewedProjects).map((project) => (
-            <Link
-              key={project.id}
-              to={{
-                pathname: `/project/${project.number}`,
-                state: { reviewMode: false },
-              }}
-              className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-            >
-              <div>
-                {!!project.title?.length && (
-                  <div className="text-xl font-bold mb-4">{project.title}</div>
-                )}
-                <ReactMarkdown
-                  className="text-sm text-gray-600 formatted"
-                  source={project.body}
-                />
-              </div>
-              <div className="flex mt-4 items-center">
-                <img
-                  src={project.author.avatarUrl}
-                  alt={project.author.name || project.author.login}
-                  className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                />
-                <div className="text-base flex-1">
-                  {project.author.name || project.author.login}
+          Object.values(data?.allNotReviewedProjects)
+            .slice(0)
+            .reverse()
+            .map((project) => (
+              <Link
+                key={project.id}
+                to={{
+                  pathname: `/project/${project.number}`,
+                  state: { reviewMode: false },
+                }}
+                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
+              >
+                <div>
+                  {!!project.title?.length && (
+                    <div className="text-xl font-bold mb-4">
+                      {project.title}
+                    </div>
+                  )}
+                  <ReactMarkdown
+                    className="text-sm text-gray-600 formatted"
+                    source={project.body}
+                  />
                 </div>
-              </div>
-            </Link>
-          ))}
+                <div className="flex mt-4 items-center">
+                  <img
+                    src={project.author.avatarUrl}
+                    alt={project.author.name || project.author.login}
+                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+                  />
+                  <div className="text-base flex-1">
+                    {project.author.name || project.author.login}
+                  </div>
+                </div>
+              </Link>
+            ))}
         {currentFilter == "done" &&
           data?.allReviewedProjects &&
-          Object.values(data?.allReviewedProjects).map((project) => (
-            <Link
-              key={project.id}
-              to={{
-                pathname: `/project/${project.number}`,
-                state: { reviewMode: false },
-              }}
-              className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-            >
-              <div>
-                {!!project.title?.length && (
-                  <div className="text-xl font-bold mb-4">{project.title}</div>
-                )}
+          Object.values(data?.allReviewedProjects)
+            .slice(0)
+            .reverse()
+            .map((project) => (
+              <Link
+                key={project.id}
+                to={{
+                  pathname: `/project/${project.number}`,
+                  state: { reviewMode: false },
+                }}
+                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
+              >
+                <div>
+                  {!!project.title?.length && (
+                    <div className="text-xl font-bold mb-4">
+                      {project.title}
+                    </div>
+                  )}
 
-                <ReactMarkdown
-                  className="text-sm text-gray-600 formatted"
-                  source={project.body}
-                />
-              </div>
-              <div className="flex mt-4 items-center">
-                <img
-                  src={project.author.avatarUrl}
-                  alt={project.author.name || project.author.login}
-                  className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                />
-                <div className="text-base flex-1">
-                  {project.author.name || project.author.login}
+                  <ReactMarkdown
+                    className="text-sm text-gray-600 formatted"
+                    source={project.body}
+                  />
                 </div>
-              </div>
-            </Link>
-          ))}
+                <div className="flex mt-4 items-center">
+                  <img
+                    src={project.author.avatarUrl}
+                    alt={project.author.name || project.author.login}
+                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+                  />
+                  <div className="text-base flex-1">
+                    {project.author.name || project.author.login}
+                  </div>
+                </div>
+              </Link>
+            ))}
       </div>
     </div>
   );
