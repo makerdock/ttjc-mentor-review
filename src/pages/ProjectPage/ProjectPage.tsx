@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
 import ReactMarkdown from "react-markdown";
 
+const maxlimit = 160;
+
 type ProjectFilterType = "all" | "pending" | "done";
 const ProjectPage: React.FC = () => {
   const { data } = useData();
@@ -64,7 +66,11 @@ const ProjectPage: React.FC = () => {
                   )}
                   <ReactMarkdown
                     className="text-sm text-gray-600 formatted"
-                    source={project.body}
+                    source={
+                      project.body.length > maxlimit
+                        ? project.body.substring(0, maxlimit - 3) + "..."
+                        : project.body
+                    }
                   />
                 </div>
                 <div className="flex mt-4 items-center">
@@ -102,7 +108,11 @@ const ProjectPage: React.FC = () => {
                   )}
                   <ReactMarkdown
                     className="text-sm text-gray-600 formatted"
-                    source={project.body}
+                    source={
+                      project.body.length > maxlimit
+                        ? project.body.substring(0, maxlimit - 3) + "..."
+                        : project.body
+                    }
                   />
                 </div>
                 <div className="flex mt-4 items-center">
@@ -140,7 +150,11 @@ const ProjectPage: React.FC = () => {
 
                   <ReactMarkdown
                     className="text-sm text-gray-600 formatted"
-                    source={project.body}
+                    source={
+                      project.body.length > maxlimit
+                        ? project.body.substring(0, maxlimit - 3) + "..."
+                        : project.body
+                    }
                   />
                 </div>
                 <div className="flex mt-4 items-center">
