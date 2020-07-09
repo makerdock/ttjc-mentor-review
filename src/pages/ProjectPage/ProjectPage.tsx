@@ -6,6 +6,54 @@ import { AllProject } from "../../utils/contracts";
 
 const maxlimit = 160;
 
+const ProjectCard: React.FC<AllProject> = ({ node }) => {
+  return (
+    <Link
+      key={node.id}
+      to={{
+        pathname: `/submission/${node.number}`,
+        state: { reviewMode: false },
+      }}
+      className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
+    >
+      <div>
+        {node.title?.length && (
+          <div className="text-xl font-bold mb-4">{node.title}</div>
+        )}
+        <ReactMarkdown
+          className="text-sm text-gray-600 formatted"
+          escapeHtml={false}
+          source={
+            node.body.length > maxlimit
+              ? node.body
+                  .replace(/(?:\r\n|\r|\n)/g, "<br />")
+                  .substring(0, maxlimit - 3) + "..."
+              : node.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
+          }
+        />
+      </div>
+      <div className="flex mt-4 items-center">
+        <img
+          src={node.author.avatarUrl}
+          alt={node.author.name || node.author.login}
+          className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+        />
+        <div className="">
+          <div className="text-base mr-2">
+            {node.author.name || node.author.login}
+          </div>
+          {node.labels.edges.find(
+            (label) => label.node.name === "the finalist"
+          ) && (
+            <span className="inline-block bg-indigo-800 text-white text-xs px-2 rounded-full uppercase font-semibold tracking-wide align-bottom">
+              Finalist
+            </span>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+};
 interface FilterTabProps {
   onClick: () => void;
   label: string;
@@ -38,8 +86,8 @@ const ProjectPage: React.FC = () => {
 
   let allFinalistProject: AllProject[] = [];
   data?.allProjects.map((project) => {
-    if (project.labels.edges.length > 0) {
-      project.labels.edges.map((label) => {
+    if (project.node.labels.edges.length > 0) {
+      project.node.labels.edges.map((label) => {
         if (label.node.name === "the finalist") {
           allFinalistProject.push(project);
         }
@@ -51,7 +99,7 @@ const ProjectPage: React.FC = () => {
       <div className="rounded overflow-hidden shadow-md bg-white">
         <div className="flex justify-evenly">
           <FilterTab
-            active={currentFilter == "all"}
+            active={currentFilter === "all"}
             onClick={() => setCurrentFilter("all")}
             count={
               (data?.allProjects && Object.keys(data?.allProjects).length) || 0
@@ -59,7 +107,7 @@ const ProjectPage: React.FC = () => {
             label="Total Submissions"
           />
           <FilterTab
-            active={currentFilter == "pending"}
+            active={currentFilter === "pending"}
             onClick={() => setCurrentFilter("pending")}
             count={
               (data?.allNotReviewedProjects &&
@@ -69,7 +117,7 @@ const ProjectPage: React.FC = () => {
             label="Pending for Approval"
           />
           <FilterTab
-            active={currentFilter == "done"}
+            active={currentFilter === "done"}
             onClick={() => setCurrentFilter("done")}
             count={
               (data?.allReviewedProjects &&
@@ -79,7 +127,7 @@ const ProjectPage: React.FC = () => {
             label="Approved Submissions"
           />
           <FilterTab
-            active={currentFilter == "finalist"}
+            active={currentFilter === "finalist"}
             onClick={() => setCurrentFilter("finalist")}
             count={(allFinalistProject && allFinalistProject.length) || 0}
             label="Finalist Submissions"
@@ -91,185 +139,36 @@ const ProjectPage: React.FC = () => {
         // className="flex flex-wrap lg:-mx-4 mt-6"
         className="card-grid mt-6"
       >
-        {currentFilter == "all" &&
+        {currentFilter === "all" &&
           data?.allProjects &&
           Object.values(data?.allProjects)
             .slice(0)
             .reverse()
             .map((project) => (
-              <Link
-                key={project.id}
-                to={{
-                  pathname: `/submission/${project.number}`,
-                  state: { reviewMode: false },
-                }}
-                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-              >
-                <div>
-                  {!!project.title?.length && (
-                    <div className="text-xl font-bold mb-4">
-                      {project.title}
-                    </div>
-                  )}
-                  <ReactMarkdown
-                    className="text-sm text-gray-600 formatted"
-                    escapeHtml={false}
-                    source={
-                      project.body.length > maxlimit
-                        ? project.body
-                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
-                            .substring(0, maxlimit - 3) + "..."
-                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
-                    }
-                  />
-                </div>
-                <div className="flex mt-4 items-center">
-                  <img
-                    src={project.author.avatarUrl}
-                    alt={project.author.name || project.author.login}
-                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                  />
-                  <div className="text-base flex-1">
-                    {project.author.name || project.author.login}
-                  </div>
-                </div>
-              </Link>
+              <ProjectCard cursor={project.cursor} node={project.node} />
             ))}
 
-        {currentFilter == "pending" &&
+        {currentFilter === "pending" &&
           data?.allNotReviewedProjects &&
           Object.values(data?.allNotReviewedProjects)
             .slice(0)
             .reverse()
             .map((project) => (
-              <Link
-                key={project.id}
-                to={{
-                  pathname: `/submission/${project.number}`,
-                  state: { reviewMode: false },
-                }}
-                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-              >
-                <div>
-                  {!!project.title?.length && (
-                    <div className="text-xl font-bold mb-4">
-                      {project.title}
-                    </div>
-                  )}
-                  <ReactMarkdown
-                    className="text-sm text-gray-600 formatted"
-                    escapeHtml={false}
-                    source={
-                      project.body.length > maxlimit
-                        ? project.body
-                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
-                            .substring(0, maxlimit - 3) + "..."
-                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
-                    }
-                  />
-                </div>
-                <div className="flex mt-4 items-center">
-                  <img
-                    src={project.author.avatarUrl}
-                    alt={project.author.name || project.author.login}
-                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                  />
-                  <div className="text-base flex-1">
-                    {project.author.name || project.author.login}
-                  </div>
-                </div>
-              </Link>
+              <ProjectCard cursor={project.cursor} node={project.node} />
             ))}
-        {currentFilter == "done" &&
+        {currentFilter === "done" &&
           data?.allReviewedProjects &&
           Object.values(data?.allReviewedProjects)
             .slice(0)
             .reverse()
             .map((project) => (
-              <Link
-                key={project.id}
-                to={{
-                  pathname: `/submission/${project.number}`,
-                  state: { reviewMode: false },
-                }}
-                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-              >
-                <div>
-                  {!!project.title?.length && (
-                    <div className="text-xl font-bold mb-4">
-                      {project.title}
-                    </div>
-                  )}
-
-                  <ReactMarkdown
-                    className="text-sm text-gray-600 formatted"
-                    escapeHtml={false}
-                    source={
-                      project.body.length > maxlimit
-                        ? project.body
-                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
-                            .substring(0, maxlimit - 3) + "..."
-                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
-                    }
-                  />
-                </div>
-                <div className="flex mt-4 items-center">
-                  <img
-                    src={project.author.avatarUrl}
-                    alt={project.author.name || project.author.login}
-                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                  />
-                  <div className="text-base flex-1">
-                    {project.author.name || project.author.login}
-                  </div>
-                </div>
-              </Link>
+              <ProjectCard cursor={project.cursor} node={project.node} />
             ))}
-        {currentFilter == "finalist" &&
+        {currentFilter === "finalist" &&
           allFinalistProject &&
-          allFinalistProject
-            .slice(0)
-            .reverse()
-            .map((project) => (
-              <Link
-                key={project.id}
-                to={{
-                  pathname: `/submission/${project.number}`,
-                  state: { reviewMode: false },
-                }}
-                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-              >
-                <div>
-                  {!!project.title?.length && (
-                    <div className="text-xl font-bold mb-4">
-                      {project.title}
-                    </div>
-                  )}
-
-                  <ReactMarkdown
-                    className="text-sm text-gray-600 formatted"
-                    escapeHtml={false}
-                    source={
-                      project.body.length > maxlimit
-                        ? project.body
-                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
-                            .substring(0, maxlimit - 3) + "..."
-                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
-                    }
-                  />
-                </div>
-                <div className="flex mt-4 items-center">
-                  <img
-                    src={project.author.avatarUrl}
-                    alt={project.author.name || project.author.login}
-                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                  />
-                  <div className="text-base flex-1">
-                    {project.author.name || project.author.login}
-                  </div>
-                </div>
-              </Link>
-            ))}
+          allFinalistProject.map((project) => (
+            <ProjectCard cursor={project.cursor} node={project.node} />
+          ))}
       </div>
     </div>
   );

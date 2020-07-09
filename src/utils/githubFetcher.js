@@ -70,7 +70,6 @@ export const generateFinalJSON = async () => {
     allReviewedProjects: reviewed,
     allNotReviewedProjects: notReviewed,
   };
-  console.log("res", res);
   return res;
 };
 
@@ -193,8 +192,8 @@ async function getData() {
 function getReviewedData(projects) {
   projects.map((project) => {
     var temp = false;
-    if (project.labels.edges.length > 0) {
-      project.labels.edges.map((label) => {
+    if (project.node.labels.edges.length > 0) {
+      project.node.labels.edges.map((label) => {
         if (label.node.name === "Reviewed-By-Mentor") {
           temp = true;
           reviewed.push(project);
@@ -209,18 +208,27 @@ function getReviewedData(projects) {
   });
 }
 
+function checkFinalist(project) {
+  return project.node.labels.edges.some((label) => {
+    return label.node.name === "the finalist";
+  });
+}
+
 function getProjects(array) {
-  array.forEach((item) => {
-    if (item.node.labels.edges.length > 0) {
-      item.node.labels.edges.map((label) => {
-        if (
-          label.node.name === "Feedback-pending" ||
-          label.node.name === "Reviewed-By-Mentor"
-        ) {
-          projects.push(item.node);
-        }
-      });
-    }
+  projects = array.filter((issue) => {
+    if (issue.node.labels.edges.length === 0) return false;
+    return issue.node.labels.edges.find(
+      (label) =>
+        label.node.name === "Feedback-pending" ||
+        label.node.name === "Reviewed-By-Mentor"
+    );
+  });
+  projects.sort((a, b) => {
+    const checkA = checkFinalist(a);
+    const checkB = checkFinalist(b);
+    if (checkA === checkB) return 0;
+    if (checkA) return 1;
+    if (checkB) return -1;
   });
 }
 
@@ -239,23 +247,31 @@ function getCursor(data) {
 
 function getUsers(projects) {
   projects.forEach((project) => {
+    let isFinalist = project.node.labels.edges.find(
+      (label) => label.node.name === "the finalist"
+    )
+      ? true
+      : false;
+
     if (
       users.some((item) => {
-        return item.login === project.author.login;
+        return item.login === project.node.author.login;
       })
     ) {
       const index = users.findIndex(
-        (item) => item.login === project.author.login
+        (item) => item.login === project.node.author.login
       );
       users[index].totalProjects = users[index].totalProjects + 1;
-      users[index].projects.push(project.id);
+      users[index].projects.push(project.node.id);
+      if (!users[index].isFinalist) users[index].isFinalist = isFinalist;
     } else {
       var projectsArray = [];
-      projectsArray.push(project.id);
+      projectsArray.push(project.node.id);
       users.push({
-        ...project.author,
+        ...project.node.author,
         totalProjects: 1,
         projects: projectsArray,
+        isFinalist: isFinalist,
       });
       return true;
     }

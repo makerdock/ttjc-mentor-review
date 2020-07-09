@@ -23,29 +23,29 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
   let nextProject: number | null = 0;
   let prevProject: number | null = 0;
   const currProject =
-    data?.allProjects.find((p) => p.number == issueId) || null;
+    data?.allProjects.find((p) => p.node.number == issueId) || null;
   data?.allProjects.forEach((p, i) => {
-    if (p.number === currProject?.number) {
+    if (p.node.number === currProject?.node.number) {
       nextProject = data?.allProjects.slice(0).reverse()[i - 1]
-        ? data?.allProjects[i - 1].number
+        ? data?.allProjects[i - 1].node.number
         : null;
       prevProject = data?.allProjects.slice(0).reverse()[i + 1]
-        ? data?.allProjects[i + 1].number
+        ? data?.allProjects[i + 1].node.number
         : null;
     }
   });
   type ReviewModeType = true | false;
   const [reviewMode, setReviewMode] = useState<ReviewModeType>(
-    state.reviewMode || false
+    state?.reviewMode || false
   );
 
-  // function LinkRenderer(props: { [nodeType: string]: React.ElementType<any> }) {
-  //   return (
-  //     <a href={props.href} target="_blank">
-  //       {props.children}
-  //     </a>
-  //   );
-  // }
+  function LinkRenderer(props: any) {
+    return (
+      <a href={props.href} target="_blank" rel="noopener noreferrer">
+        {props.children}
+      </a>
+    );
+  }
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -69,27 +69,34 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
       <div className="rounded-lg shadow-md bg-white mb-4 py-6 px-8 ">
         <div className="flex flex-row justify-between items-center ">
           <div className="flex flex-row items-center">
-            <Link to={`/dev/${currProject?.author.login}`}>
+            <Link to={`/dev/${currProject?.node.author.login}`}>
               <img
                 className="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto md:mx-0 md:mr-6"
-                src={currProject?.author.avatarUrl}
+                src={currProject?.node.author.avatarUrl}
                 alt=""
               />
             </Link>
             <div>
               <div className="text-xl">
-                <Link to={`dev/${currProject?.author.login}`}>
-                  {currProject?.author.name || currProject?.author.id}
+                <Link to={`dev/${currProject?.node.author.login}`}>
+                  {currProject?.node.author.name || currProject?.node.author.id}
                 </Link>
               </div>
               <a
                 className="block no-underline hover:underline focus:text-gray-900 hover:text-gray-900 text-sm text-indigo-800"
-                href={currProject?.author.url}
+                href={currProject?.node.author.url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                @{currProject?.author.login}
+                @{currProject?.node.author.login}
               </a>
+              {currProject?.node.labels.edges.find(
+                (label) => label.node.name === "the finalist"
+              ) && (
+                <span className="inline-block bg-indigo-800 text-white text-xs px-2 rounded-full uppercase font-semibold tracking-wide align-bottom">
+                  Finalist
+                </span>
+              )}
             </div>
           </div>
           {reviewMode && (
@@ -123,19 +130,22 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
       <div className="container mx-auto">
         <div className="border rounded my-4 py-6 px-8  bg-white shadow-md">
           <div className="flex justify-between items-center mb-6">
-            <div className="text-xl font-bold">{currProject?.title}</div>
-            {currProject?.createdAt && (
+            <div className="text-xl font-bold">{currProject?.node.title}</div>
+            {currProject?.node.createdAt && (
               <div className="text-sm text-gray-600 ">
-                {timeSince(new Date(currProject.createdAt))}
+                {timeSince(new Date(currProject.node.createdAt))}
               </div>
             )}
           </div>
-          {currProject?.body && (
+          {currProject?.node.body && (
             <ReactMarkdown
               className="text-gray-800 text-base formatted"
-              source={currProject?.body.replace(/(?:\r\n|\r|\n)/g, "<br />")}
+              source={currProject?.node.body.replace(
+                /(?:\r\n|\r|\n)/g,
+                "<br />"
+              )}
               escapeHtml={false}
-              // renderers={LinkRenderer}
+              renderers={{ link: LinkRenderer }}
             />
           )}
         </div>

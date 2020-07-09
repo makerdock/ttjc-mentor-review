@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
 
 const Navbar = () => {
   document.documentElement.style.setProperty("--background", "#f4f5f9");
-  const { data } = useData();
+  const { data, refreshData } = useData();
 
-  let reviewProjId: number | null = null;
-  data?.allProjects.slice(-1).forEach((project) => {
-    if (
-      project.labels.edges.some((lable) => lable.node.name === "the finalist")
-    ) {
-      reviewProjId = project.number;
-      return;
+  const [loader, setLoader] = useState<Boolean>(false);
+
+  const refresh = async () => {
+    try {
+      setLoader(true);
+      await refreshData();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoader(false);
     }
-  });
+  };
+
+  let reviewProjId = data?.allProjects.slice(-1).reverse()[0].node.number;
+
   return (
     <div className="bg-indigo-800 p-6 sticky top-0 z-10">
       <div className="container mx-auto flex items-center justify-between flex-wrap ">
@@ -49,7 +55,7 @@ const Navbar = () => {
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
             <Link
-              to="/developers"
+              to="/"
               className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4"
             >
               Developers
@@ -70,10 +76,12 @@ const Navbar = () => {
           </div>
           <div>
             <div
-              onClick={() => console.log("object")}
-              className="inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0 cursor-pointer"
+              onClick={refresh}
+              className={`${
+                loader && "opacity-50"
+              } inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0 cursor-pointer`}
             >
-              Refresh
+              {loader ? "Loading" : "Refresh"}
             </div>
             <Link
               to={{

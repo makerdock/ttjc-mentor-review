@@ -8,6 +8,7 @@ export interface Data {
 
 export interface DataState {
   data: RootObject | null;
+  refreshData: () => Promise<void>;
 }
 
 const DataContext = React.createContext<DataState | null>(null);
@@ -19,6 +20,11 @@ const defaultDataData = (dataCache && JSON.parse(dataCache)) || null;
 export const DataContextProvider: React.FC = (props) => {
   const [data, setData] = useState<RootObject>(defaultDataData || null);
   const [loading, setLoading] = useState(!defaultDataData);
+
+  const refreshData = async () => {
+    const response: RootObject = await generateFinalJSON();
+    setData(response);
+  };
 
   const fetchData = async () => {
     try {
@@ -42,7 +48,7 @@ export const DataContextProvider: React.FC = (props) => {
   }, [data]);
 
   return (
-    <DataContext.Provider value={{ data }}>
+    <DataContext.Provider value={{ data, refreshData }}>
       {loading ? <Loader /> : props.children}
     </DataContext.Provider>
   );
