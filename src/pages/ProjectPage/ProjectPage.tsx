@@ -20,8 +20,8 @@ const FilterTab: React.FC<FilterTabProps> = ({
 }) => {
   return (
     <div
-      className={`w-36 text-center cursor-pointer p-4 ${
-        active ? "border-indigo-800 border rounded-md" : ""
+      className={`w-full text-center px-8 py-8 cursor-pointer p-4 ${
+        active ? "border-indigo-400 bg-indigo-100 border rounded-md" : ""
       }`}
       onClick={handleClick}
     >
@@ -48,8 +48,8 @@ const ProjectPage: React.FC = () => {
   });
   return (
     <div className="container mx-auto my-8">
-      <div className="rounded overflow-hidden shadow-md px-4 py-8 bg-white">
-        <div className="flex justify-around">
+      <div className="rounded overflow-hidden shadow-md bg-white">
+        <div className="flex justify-evenly">
           <FilterTab
             active={currentFilter == "all"}
             onClick={() => setCurrentFilter("all")}
