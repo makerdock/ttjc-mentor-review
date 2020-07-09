@@ -8,7 +8,7 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
   const { data } = useData();
 
   return (
-    <div className="container my-12 mx-auto">
+    <div className="container  px-4 md:px-0 my-12 mx-auto">
       <div className="flex flex-wrap -mx-1 lg:-mx-4">
         {data?.allUsers
           .sort((a, b) => {

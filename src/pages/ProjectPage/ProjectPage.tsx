@@ -14,7 +14,7 @@ const ProjectCard: React.FC<AllProject> = ({ node }) => {
         pathname: `/submission/${node.number}`,
         state: { reviewMode: false },
       }}
-      className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
+      className="rounded shadow-md p-4 bg-white flex justify-between flex-col"
     >
       <div>
         {node.title?.length && (
@@ -36,9 +36,9 @@ const ProjectCard: React.FC<AllProject> = ({ node }) => {
         <img
           src={node.author.avatarUrl}
           alt={node.author.name || node.author.login}
-          className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+          className="h-8 w-8 rounded-full mr-6"
         />
-        <div className="">
+        <div>
           <div className="text-base mr-2">
             {node.author.name || node.author.login}
           </div>
@@ -54,6 +54,7 @@ const ProjectCard: React.FC<AllProject> = ({ node }) => {
     </Link>
   );
 };
+
 interface FilterTabProps {
   onClick: () => void;
   label: string;
@@ -95,9 +96,9 @@ const ProjectPage: React.FC = () => {
     }
   });
   return (
-    <div className="container mx-auto my-8">
+    <div className="container px-4 md:px-0 mx-auto my-8">
       <div className="rounded overflow-hidden shadow-md bg-white">
-        <div className="flex justify-evenly">
+        <div className="md:flex justify-evenly">
           <FilterTab
             active={currentFilter === "all"}
             onClick={() => setCurrentFilter("all")}

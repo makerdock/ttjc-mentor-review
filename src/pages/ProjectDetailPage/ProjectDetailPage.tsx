@@ -65,13 +65,13 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
   }, [issueId]);
 
   return (
-    <div className="my-8 container mx-auto">
-      <div className="rounded-lg shadow-md bg-white mb-4 py-6 px-8 ">
+    <div className="my-8 container px-4 md:px-0 mx-auto">
+      <div className="rounded-lg shadow-md bg-white mb-4 p-4 ">
         <div className="flex flex-row justify-between items-center ">
           <div className="flex flex-row items-center">
             <Link to={`/dev/${currProject?.node.author.login}`}>
               <img
-                className="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto md:mx-0 md:mr-6"
+                className="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto md:mx-0 mr-6"
                 src={currProject?.node.author.avatarUrl}
                 alt=""
               />
@@ -128,8 +128,8 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
         </div>
       </div>
       <div className="container mx-auto">
-        <div className="border rounded my-4 py-6 px-8  bg-white shadow-md">
-          <div className="flex justify-between items-center mb-6">
+        <div className="border rounded my-4 p-4 bg-white shadow-md">
+          <div className="md:flex justify-between items-center mb-6">
             <div className="text-xl font-bold">{currProject?.node.title}</div>
             {currProject?.node.createdAt && (
               <div className="text-sm text-gray-600 ">
