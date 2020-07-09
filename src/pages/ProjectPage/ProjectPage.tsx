@@ -18,7 +18,12 @@ const FilterTab: React.FC<FilterTabProps> = ({
   active,
 }) => {
   return (
-    <div className={`w-1/3 text-center`} onClick={handleClick}>
+    <div
+      className={`w-36 text-center cursor-pointer p-4 ${
+        active ? "border-indigo-800 border rounded-md" : ""
+      }`}
+      onClick={handleClick}
+    >
       <span className="block text-3xl mb-2">{count}</span>
       <span className="text-gray-600 text-sm">{label}</span>
     </div>
@@ -33,39 +38,35 @@ const ProjectPage: React.FC = () => {
   return (
     <div className="container mx-auto my-8">
       <div className="rounded overflow-hidden shadow-md px-4 py-8 bg-white">
-        <div className="flex">
-          <div
-            className="w-1/3 text-center"
+        <div className="flex justify-around">
+          <FilterTab
+            active={currentFilter == "all"}
             onClick={() => setCurrentFilter("all")}
-          >
-            <span className="block text-3xl mb-2">
-              {(data?.allProjects && Object.keys(data?.allProjects).length) ||
-                0}
-            </span>
-            <span className="text-gray-600 text-sm">Total Submissions</span>
-          </div>
-          <div
-            className="w-1/3 text-center"
+            count={
+              (data?.allProjects && Object.keys(data?.allProjects).length) || 0
+            }
+            label="Total Submissions"
+          />
+          <FilterTab
+            active={currentFilter == "pending"}
             onClick={() => setCurrentFilter("pending")}
-          >
-            <span className="block text-3xl mb-2">
-              {(data?.allNotReviewedProjects &&
+            count={
+              (data?.allNotReviewedProjects &&
                 Object.keys(data?.allNotReviewedProjects).length) ||
-                0}
-            </span>
-            <span className="text-gray-600 text-sm">Pending for Approval</span>
-          </div>
-          <div
-            className="w-1/3 text-center"
+              0
+            }
+            label="Pending for Approval"
+          />
+          <FilterTab
+            active={currentFilter == "done"}
             onClick={() => setCurrentFilter("done")}
-          >
-            <span className="block text-3xl mb-2">
-              {(data?.allReviewedProjects &&
+            count={
+              (data?.allReviewedProjects &&
                 Object.keys(data?.allReviewedProjects).length) ||
-                0}
-            </span>
-            <span className="text-gray-600 text-sm">Approved Submissions</span>
-          </div>
+              0
+            }
+            label="Approved Submissions"
+          />
         </div>
       </div>
 
@@ -82,7 +83,7 @@ const ProjectPage: React.FC = () => {
               <Link
                 key={project.id}
                 to={{
-                  pathname: `/project/${project.number}`,
+                  pathname: `/submission/${project.number}`,
                   state: { reviewMode: false },
                 }}
                 className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
@@ -124,7 +125,7 @@ const ProjectPage: React.FC = () => {
               <Link
                 key={project.id}
                 to={{
-                  pathname: `/project/${project.number}`,
+                  pathname: `/submission/${project.number}`,
                   state: { reviewMode: false },
                 }}
                 className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
@@ -165,7 +166,7 @@ const ProjectPage: React.FC = () => {
               <Link
                 key={project.id}
                 to={{
-                  pathname: `/project/${project.number}`,
+                  pathname: `/submission/${project.number}`,
                   state: { reviewMode: false },
                 }}
                 className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"

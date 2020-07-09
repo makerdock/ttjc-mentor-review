@@ -49,7 +49,7 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
               <Link
                 key={project.id}
                 to={{
-                  pathname: `/project/${project.number}`,
+                  pathname: `/submission/${project.number}`,
                   state: { reviewMode: false },
                 }}
                 className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
