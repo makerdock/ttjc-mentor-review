@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
 import ReactMarkdown from "react-markdown";
+import { AllProject } from "../../utils/contracts";
 
 const maxlimit = 160;
 
@@ -30,11 +31,21 @@ const FilterTab: React.FC<FilterTabProps> = ({
   );
 };
 
-type ProjectFilterType = "all" | "pending" | "done";
+type ProjectFilterType = "all" | "pending" | "done" | "finalist";
 const ProjectPage: React.FC = () => {
   const { data } = useData();
   const [currentFilter, setCurrentFilter] = useState<ProjectFilterType>("all");
 
+  let allFinalistProject: AllProject[] = [];
+  data?.allProjects.map((project) => {
+    if (project.labels.edges.length > 0) {
+      project.labels.edges.map((label) => {
+        if (label.node.name === "the finalist") {
+          allFinalistProject.push(project);
+        }
+      });
+    }
+  });
   return (
     <div className="container mx-auto my-8">
       <div className="rounded overflow-hidden shadow-md px-4 py-8 bg-white">
@@ -66,6 +77,12 @@ const ProjectPage: React.FC = () => {
               0
             }
             label="Approved Submissions"
+          />
+          <FilterTab
+            active={currentFilter == "finalist"}
+            onClick={() => setCurrentFilter("finalist")}
+            count={(allFinalistProject && allFinalistProject.length) || 0}
+            label="Finalist Submissions"
           />
         </div>
       </div>
@@ -166,6 +183,51 @@ const ProjectPage: React.FC = () => {
         {currentFilter == "done" &&
           data?.allReviewedProjects &&
           Object.values(data?.allReviewedProjects)
+            .slice(0)
+            .reverse()
+            .map((project) => (
+              <Link
+                key={project.id}
+                to={{
+                  pathname: `/submission/${project.number}`,
+                  state: { reviewMode: false },
+                }}
+                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
+              >
+                <div>
+                  {!!project.title?.length && (
+                    <div className="text-xl font-bold mb-4">
+                      {project.title}
+                    </div>
+                  )}
+
+                  <ReactMarkdown
+                    className="text-sm text-gray-600 formatted"
+                    escapeHtml={false}
+                    source={
+                      project.body.length > maxlimit
+                        ? project.body
+                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
+                            .substring(0, maxlimit - 3) + "..."
+                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
+                    }
+                  />
+                </div>
+                <div className="flex mt-4 items-center">
+                  <img
+                    src={project.author.avatarUrl}
+                    alt={project.author.name || project.author.login}
+                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+                  />
+                  <div className="text-base flex-1">
+                    {project.author.name || project.author.login}
+                  </div>
+                </div>
+              </Link>
+            ))}
+        {currentFilter == "finalist" &&
+          allFinalistProject &&
+          allFinalistProject
             .slice(0)
             .reverse()
             .map((project) => (
