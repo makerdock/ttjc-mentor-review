@@ -3,13 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useData } from "../../contexts/DataContext";
 import { timeSince } from "../../utils/timeFormat";
-import { useHistory } from "react-router-dom";
-// const ReactMarkdown = require("react-markdown");
 
 interface ProjectDetailPageProps {}
 const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
   let { issueId } = useParams();
-  let history = useHistory();
   const { data } = useData();
   let nextProject: number | null = 0;
   let prevProject: number | null = 0;
@@ -26,14 +23,6 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
     }
   });
 
-  const handleKeyPress = (event: KeyboardEvent) => {
-    if (event.keyCode == 37 && prevProject) {
-      history.push(`/project/${prevProject}`);
-    } else if (event.keyCode == 39 && nextProject) {
-      history.push(`/project/${nextProject}`);
-    }
-  };
-
   useEffect(() => {
     const script = document.createElement("script");
     const anchor = document.getElementById("inject-comments-for-uterances");
@@ -46,14 +35,10 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
     script.setAttribute("theme", "github-light");
 
     if (anchor) {
+      while (anchor.firstChild) anchor.removeChild(anchor.firstChild);
       anchor.appendChild(script);
     }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyPress);
-    return document.removeEventListener("keydown", handleKeyPress);
-  }, []);
+  }, [issueId]);
 
   return (
     <div className="my-8 container mx-auto">
@@ -86,7 +71,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
           <div>
             {prevProject && (
               <Link
-                to={`/project/${prevProject}`}
+                to={`/submission/${prevProject}`}
                 className="inline-block mx-2 text-sm px-4 py-2 border rounded text-indigo-800 border-indigo-800 hover:border-transparent hover:text-white hover:bg-indigo-800  mt-4 lg:mt-0"
               >
                 Previous Project
@@ -94,7 +79,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
             )}
             {nextProject && (
               <Link
-                to={`/project/${nextProject}`}
+                to={`/submission/${nextProject}`}
                 className="inline-block mx-2 text-sm px-4 py-2 border rounded text-indigo-800 border-indigo-800 hover:border-transparent hover:text-white hover:bg-indigo-800  mt-4 lg:mt-0"
               >
                 Next Project
@@ -116,7 +101,8 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
           {currProject?.body && (
             <ReactMarkdown
               className="text-gray-800 text-base formatted"
-              source={currProject?.body}
+              source={currProject?.body.replace(/(?:\r\n|\r|\n)/g, "<br />")}
+              escapeHtml={false}
             />
           )}
         </div>
