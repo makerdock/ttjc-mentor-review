@@ -19,7 +19,7 @@ const Navbar = () => {
     }
   };
 
-  let reviewProjId = data?.allProjects.slice(-1).reverse()[0].node.number;
+  let reviewProjId = data?.allProjects.slice(-1).reverse()[0].node?.number;
 
   return (
     <div className="bg-indigo-800 p-6 sticky top-0 z-10">
@@ -71,7 +71,7 @@ const Navbar = () => {
               to="/contact"
               className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4"
             >
-              Contact
+              About Us
             </Link>
           </div>
           <div>
@@ -79,7 +79,7 @@ const Navbar = () => {
               onClick={refresh}
               className={`${
                 loader && "opacity-50"
-              } inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0 cursor-pointer`}
+              } inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white dark:bg-black mt-4 lg:mt-0 cursor-pointer`}
             >
               {loader ? "Loading" : "Refresh"}
             </div>
@@ -88,7 +88,7 @@ const Navbar = () => {
                 pathname: `/submission/${reviewProjId}`,
                 state: { reviewMode: true },
               }}
-              className="inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0"
+              className="inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white dark:bg-black mt-4 lg:mt-0"
             >
               Start review
             </Link>

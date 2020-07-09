@@ -13,13 +13,13 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
   const currUser = data?.allUsers.find((user) => user.login === username);
   var userProject: AllProject[] = [];
   data?.allProjects.map((project) => {
-    if (currUser?.projects.includes(project.node.id)) {
+    if (currUser?.projects.includes(project.node?.id)) {
       userProject.push(project);
     }
   });
   return (
     <div className="my-8 container px-4 md:px-0 mx-auto">
-      <div className="rounded-lg shadow-md bg-white mb-4 py-6 px-8 ">
+      <div className="rounded-lg shadow-md bg-white dark:bg-black mb-4 py-6 px-8 ">
         <div className="flex flex-row justify-between items-center ">
           <div className="flex flex-row items-center">
             <Link to={`/dev/${currUser?.login}`}>
@@ -58,7 +58,7 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
                 pathname: `/submission/${project.node.number}`,
                 state: { reviewMode: false },
               }}
-              className="rounded shadow-md p-6 bg-white flex justify-between flex-col"
+              className="rounded shadow-md p-6 bg-white dark:bg-black flex justify-between flex-col"
             >
               <div>
                 {!!project.node.title?.length && (

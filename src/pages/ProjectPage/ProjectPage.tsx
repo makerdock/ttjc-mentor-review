@@ -14,7 +14,7 @@ const ProjectCard: React.FC<AllProject> = ({ node }) => {
         pathname: `/submission/${node.number}`,
         state: { reviewMode: false },
       }}
-      className="rounded shadow-md p-4 bg-white flex justify-between flex-col"
+      className="rounded shadow-md p-4 bg-white dark:bg-black flex justify-between flex-col"
     >
       <div>
         {node.title?.length && (
@@ -97,7 +97,7 @@ const ProjectPage: React.FC = () => {
   });
   return (
     <div className="container px-4 md:px-0 mx-auto my-8">
-      <div className="rounded overflow-hidden shadow-md bg-white">
+      <div className="rounded overflow-hidden shadow-md bg-white dark:bg-black">
         <div className="md:flex justify-evenly">
           <FilterTab
             active={currentFilter === "all"}

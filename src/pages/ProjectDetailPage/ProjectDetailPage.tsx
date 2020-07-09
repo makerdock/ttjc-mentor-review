@@ -24,6 +24,7 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
   let prevProject: number | null = 0;
   const currProject =
     data?.allProjects.find((p) => p.node.number == issueId) || null;
+
   data?.allProjects.forEach((p, i) => {
     if (p.node.number === currProject?.node.number) {
       nextProject = data?.allProjects.slice(0).reverse()[i - 1]
@@ -34,10 +35,8 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
         : null;
     }
   });
-  type ReviewModeType = true | false;
-  const [reviewMode, setReviewMode] = useState<ReviewModeType>(
-    state?.reviewMode || false
-  );
+
+  const reviewMode = !!state?.reviewMode;
 
   function LinkRenderer(props: any) {
     return (
@@ -66,12 +65,12 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
 
   return (
     <div className="my-8 container px-4 md:px-0 mx-auto">
-      <div className="rounded-lg shadow-md bg-white mb-4 p-4 ">
+      <div className="rounded-lg shadow-md bg-white dark:bg-black mb-4 p-4 ">
         <div className="flex flex-row justify-between items-center ">
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center ">
             <Link to={`/dev/${currProject?.node.author.login}`}>
               <img
-                className="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto md:mx-0 mr-6"
+                className="h-16 w-16 rounded-full mx-auto mr-6"
                 src={currProject?.node.author.avatarUrl}
                 alt=""
               />
@@ -128,7 +127,7 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
         </div>
       </div>
       <div className="container mx-auto">
-        <div className="border rounded my-4 p-4 bg-white shadow-md">
+        <div className="border rounded my-4 p-4 bg-white dark:bg-black shadow-md">
           <div className="md:flex justify-between items-center mb-6">
             <div className="text-xl font-bold">{currProject?.node.title}</div>
             {currProject?.node.createdAt && (

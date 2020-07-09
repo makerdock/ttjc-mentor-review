@@ -4,7 +4,7 @@ interface ContactPageProps {}
 const ContactPage: React.FC<ContactPageProps> = (props) => {
   return (
     <div className="flex flex-wrap justify-center items-center w-full h-full">
-      <div className="w-60 bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-10">
+      <div className="w-60 bg-white dark:bg-black shadow-lg rounded-lg overflow-hidden my-4 mx-10">
         <img
           className="w-full h-56 object-cover object-center"
           src="https://avatars3.githubusercontent.com/u/13379773?s=400&u=372bd79e2ec0b4256f689f05055a929cd095edd1&v=4"
@@ -46,7 +46,7 @@ const ContactPage: React.FC<ContactPageProps> = (props) => {
 
       {/*  */}
 
-      <div className="w-60 bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-10">
+      <div className="w-60 bg-white dark:bg-black shadow-lg rounded-lg overflow-hidden my-4 mx-10">
         <img
           className="w-full h-56 object-cover object-center"
           src="https://avatars0.githubusercontent.com/u/36530381?s=460&u=f5c86dce9b82630cd575e51bf8e201bc1692a75a&v=4"
