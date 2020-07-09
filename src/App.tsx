@@ -27,10 +27,10 @@ const Router = () => {
             <Route exact path="/">
               <DevListPage />
             </Route>
-            <Route path="/projects">
+            <Route path="/submissions">
               <ProjectPage />
             </Route>
-            <Route path="/project/:issueId">
+            <Route path="/submission/:issueId">
               <ProjectDetailPage />
             </Route>
 

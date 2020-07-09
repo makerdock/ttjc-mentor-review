@@ -57,9 +57,9 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
                       user.totalProjects >= 5
                         ? "bg-green-600 text-white"
                         : "text-orange-400"
-                    } text-xs text-center py-1 w-20 mx-auto rounded-md mt-2`}
+                    } text-xs text-center py-1 w-24 mx-auto rounded-md mt-2`}
                   >
-                    {user.totalProjects} Project
+                    {user.totalProjects} Submission
                     {user.totalProjects > 1 ? "s" : ""}
                   </div>
                 </div>

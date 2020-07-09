@@ -5,6 +5,26 @@ import ReactMarkdown from "react-markdown";
 
 const maxlimit = 160;
 
+interface FilterTabProps {
+  onClick: () => void;
+  label: string;
+  count: number;
+  active: boolean;
+}
+const FilterTab: React.FC<FilterTabProps> = ({
+  count,
+  onClick: handleClick,
+  label,
+  active,
+}) => {
+  return (
+    <div className={`w-1/3 text-center`} onClick={handleClick}>
+      <span className="block text-3xl mb-2">{count}</span>
+      <span className="text-gray-600 text-sm">{label}</span>
+    </div>
+  );
+};
+
 type ProjectFilterType = "all" | "pending" | "done";
 const ProjectPage: React.FC = () => {
   const { data } = useData();
@@ -14,14 +34,20 @@ const ProjectPage: React.FC = () => {
     <div className="container mx-auto my-8">
       <div className="rounded overflow-hidden shadow-md px-4 py-8 bg-white">
         <div className="flex">
-          <div className="w-1/3 text-center">
+          <div
+            className="w-1/3 text-center"
+            onClick={() => setCurrentFilter("all")}
+          >
             <span className="block text-3xl mb-2">
               {(data?.allProjects && Object.keys(data?.allProjects).length) ||
                 0}
             </span>
-            <span className="text-gray-600 text-sm">Total Projects</span>
+            <span className="text-gray-600 text-sm">Total Submissions</span>
           </div>
-          <div className="w-1/3 text-center">
+          <div
+            className="w-1/3 text-center"
+            onClick={() => setCurrentFilter("pending")}
+          >
             <span className="block text-3xl mb-2">
               {(data?.allNotReviewedProjects &&
                 Object.keys(data?.allNotReviewedProjects).length) ||
@@ -29,13 +55,16 @@ const ProjectPage: React.FC = () => {
             </span>
             <span className="text-gray-600 text-sm">Pending for Approval</span>
           </div>
-          <div className="w-1/3 text-center">
+          <div
+            className="w-1/3 text-center"
+            onClick={() => setCurrentFilter("done")}
+          >
             <span className="block text-3xl mb-2">
               {(data?.allReviewedProjects &&
                 Object.keys(data?.allReviewedProjects).length) ||
                 0}
             </span>
-            <span className="text-gray-600 text-sm">Approved Projects</span>
+            <span className="text-gray-600 text-sm">Approved Submissions</span>
           </div>
         </div>
       </div>
