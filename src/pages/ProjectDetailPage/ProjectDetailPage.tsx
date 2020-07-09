@@ -1,11 +1,23 @@
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Link,
+  useParams,
+  useLocation,
+  withRouter,
+  RouteComponentProps,
+} from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useData } from "../../contexts/DataContext";
 import { timeSince } from "../../utils/timeFormat";
 
-interface ProjectDetailPageProps {}
-const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
+interface HomeProps extends RouteComponentProps<any>, React.Props<any> {}
+interface LocationState {
+  reviewMode: boolean;
+}
+
+const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
+  const { state } = useLocation<LocationState>();
+
   let { issueId } = useParams();
   const { data } = useData();
   let nextProject: number | null = 0;
@@ -22,6 +34,10 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
         : null;
     }
   });
+  type ReviewModeType = true | false;
+  const [reviewMode, setReviewMode] = useState<ReviewModeType>(
+    state.reviewMode || false
+  );
 
   // function LinkRenderer(props: { [nodeType: string]: React.ElementType<any> }) {
   //   return (
@@ -72,28 +88,36 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                @{currProject?.author.name}
+                @{currProject?.author.login}
               </a>
             </div>
           </div>
-          <div>
-            {prevProject && (
-              <Link
-                to={`/submission/${prevProject}`}
-                className="inline-block mx-2 text-sm px-4 py-2 border rounded text-indigo-800 border-indigo-800 hover:border-transparent hover:text-white hover:bg-indigo-800  mt-4 lg:mt-0"
-              >
-                Previous Project
-              </Link>
-            )}
-            {nextProject && (
-              <Link
-                to={`/submission/${nextProject}`}
-                className="inline-block mx-2 text-sm px-4 py-2 border rounded text-indigo-800 border-indigo-800 hover:border-transparent hover:text-white hover:bg-indigo-800  mt-4 lg:mt-0"
-              >
-                Next Project
-              </Link>
-            )}
-          </div>
+          {reviewMode && (
+            <div>
+              {prevProject && (
+                <Link
+                  to={{
+                    pathname: `/submission/${prevProject}`,
+                    state: { reviewMode: true },
+                  }}
+                  className="inline-block mx-2 text-sm px-4 py-2 border rounded text-indigo-800 border-indigo-800 hover:border-transparent hover:text-white hover:bg-indigo-800  mt-4 lg:mt-0"
+                >
+                  Previous Project
+                </Link>
+              )}
+              {nextProject && (
+                <Link
+                  to={{
+                    pathname: `/submission/${nextProject}`,
+                    state: { reviewMode: true },
+                  }}
+                  className="inline-block mx-2 text-sm px-4 py-2 border rounded text-indigo-800 border-indigo-800 hover:border-transparent hover:text-white hover:bg-indigo-800  mt-4 lg:mt-0"
+                >
+                  Next Project
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <div className="container mx-auto">
@@ -121,4 +145,4 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
   );
 };
 
-export default ProjectDetailPage;
+export default withRouter(ProjectDetailPage);

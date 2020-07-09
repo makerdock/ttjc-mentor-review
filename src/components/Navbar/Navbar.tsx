@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useData } from "../../contexts/DataContext";
 
 const Navbar = () => {
   document.documentElement.style.setProperty("--background", "#f4f5f9");
+  const { data } = useData();
+  let reviewProjId = data?.allProjects.slice(-1)[0].number;
   return (
     <div className="bg-indigo-800 p-6 sticky top-0 z-10">
       <div className="container mx-auto flex items-center justify-between flex-wrap ">
@@ -57,9 +60,18 @@ const Navbar = () => {
             </Link>
           </div>
           <div>
+            <div
+              onClick={() => console.log("object")}
+              className="inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0 cursor-pointer"
+            >
+              Refresh
+            </div>
             <Link
-              to="/review"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0"
+              to={{
+                pathname: `/submission/${reviewProjId}`,
+                state: { reviewMode: true },
+              }}
+              className="inline-block mx-2 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-500 hover:bg-white mt-4 lg:mt-0"
             >
               Start review
             </Link>
