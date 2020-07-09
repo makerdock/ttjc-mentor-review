@@ -11,7 +11,7 @@ const ContactPage: React.FC<ContactPageProps> = (props) => {
           alt="avatar"
         />
         <div className="py-4 px-6">
-          <h1 className="text-2xl font-semibold text-gray-800 text-center">
+          <h1 className="text-xl font-semibold text-gray-800 text-center">
             Utkarsh Bhimte
           </h1>
 
@@ -54,7 +54,7 @@ const ContactPage: React.FC<ContactPageProps> = (props) => {
         />
 
         <div className="py-4 px-6">
-          <h1 className="text-2xl font-semibold text-gray-800 text-center">
+          <h1 className="text-xl font-semibold text-gray-800 text-center">
             &nbsp;&nbsp;Viral Sangani&nbsp; &nbsp;
           </h1>
 
