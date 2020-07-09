@@ -5,7 +5,16 @@ import { useData } from "../../contexts/DataContext";
 const Navbar = () => {
   document.documentElement.style.setProperty("--background", "#f4f5f9");
   const { data } = useData();
-  let reviewProjId = data?.allProjects.slice(-1)[0].number;
+
+  let reviewProjId: number | null = null;
+  data?.allProjects.slice(-1).forEach((project) => {
+    if (
+      project.labels.edges.some((lable) => lable.node.name === "the finalist")
+    ) {
+      reviewProjId = project.number;
+      return;
+    }
+  });
   return (
     <div className="bg-indigo-800 p-6 sticky top-0 z-10">
       <div className="container mx-auto flex items-center justify-between flex-wrap ">
