@@ -42,14 +42,14 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
       </div>
 
       <div className="container mx-auto">
-        <h2 className="mt-10 text-lg text-gray-600 mb-2">Projects</h2>
+        <h2 className="mt-10 text-lg text-gray-600 mb-2">Submissions</h2>
         <div className="card-grid">
           {userProject &&
             Object.values(userProject).map((project) => (
               <Link
                 key={project.id}
                 to={{
-                  pathname: `/project/${project.number}`,
+                  pathname: `/submission/${project.number}`,
                   state: { reviewMode: false },
                 }}
                 className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
