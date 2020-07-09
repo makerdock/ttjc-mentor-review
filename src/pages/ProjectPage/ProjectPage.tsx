@@ -96,10 +96,13 @@ const ProjectPage: React.FC = () => {
                   )}
                   <ReactMarkdown
                     className="text-sm text-gray-600 formatted"
+                    escapeHtml={false}
                     source={
                       project.body.length > maxlimit
-                        ? project.body.substring(0, maxlimit - 3) + "..."
-                        : project.body
+                        ? project.body
+                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
+                            .substring(0, maxlimit - 3) + "..."
+                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
                     }
                   />
                 </div>
@@ -138,10 +141,13 @@ const ProjectPage: React.FC = () => {
                   )}
                   <ReactMarkdown
                     className="text-sm text-gray-600 formatted"
+                    escapeHtml={false}
                     source={
                       project.body.length > maxlimit
-                        ? project.body.substring(0, maxlimit - 3) + "..."
-                        : project.body
+                        ? project.body
+                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
+                            .substring(0, maxlimit - 3) + "..."
+                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
                     }
                   />
                 </div>
@@ -180,10 +186,13 @@ const ProjectPage: React.FC = () => {
 
                   <ReactMarkdown
                     className="text-sm text-gray-600 formatted"
+                    escapeHtml={false}
                     source={
                       project.body.length > maxlimit
-                        ? project.body.substring(0, maxlimit - 3) + "..."
-                        : project.body
+                        ? project.body
+                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
+                            .substring(0, maxlimit - 3) + "..."
+                        : project.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
                     }
                   />
                 </div>
