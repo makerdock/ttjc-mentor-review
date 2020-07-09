@@ -3,8 +3,10 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 // pages
 import DevListPage from "./pages/DevListPage";
+import DevDetailsPage from "./pages/DevDetailsPage";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
+import ContactPage from "./pages/ContactPage";
 
 // components
 import Navbar from "./components/Navbar";
@@ -12,7 +14,6 @@ import { ContextProvider } from "./contexts";
 
 import "./tailwind.output.css";
 import "./app.css";
-import DevDetailsPage from "./pages/DevDetailsPage";
 
 const Router = () => {
   return (
@@ -33,7 +34,9 @@ const Router = () => {
             <Route path="/submission/:issueId">
               <ProjectDetailPage />
             </Route>
-
+            <Route path="/contact">
+              <ContactPage />
+            </Route>
             <Redirect to="/" />
           </Switch>
         </>

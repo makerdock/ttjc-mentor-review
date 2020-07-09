@@ -23,6 +23,14 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
     }
   });
 
+  // function LinkRenderer(props: { [nodeType: string]: React.ElementType<any> }) {
+  //   return (
+  //     <a href={props.href} target="_blank">
+  //       {props.children}
+  //     </a>
+  //   );
+  // }
+
   useEffect(() => {
     const script = document.createElement("script");
     const anchor = document.getElementById("inject-comments-for-uterances");
@@ -103,6 +111,7 @@ const ProjectDetailPage: React.FC<ProjectDetailPageProps> = () => {
               className="text-gray-800 text-base formatted"
               source={currProject?.body.replace(/(?:\r\n|\r|\n)/g, "<br />")}
               escapeHtml={false}
+              // renderers={LinkRenderer}
             />
           )}
         </div>
