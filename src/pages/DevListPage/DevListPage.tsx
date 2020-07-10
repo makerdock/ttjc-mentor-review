@@ -8,7 +8,7 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
   const { data } = useData();
 
   return (
-    <div className="container my-12 mx-auto">
+    <div className="container  px-4 md:px-0 my-12 mx-auto">
       <div className="flex flex-wrap -mx-1 lg:-mx-4">
         {data?.allUsers
           .sort((a, b) => {
@@ -27,7 +27,7 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
                 to={`/dev/${user.login}`}
                 className="px-1 w-full md:w-1/2 my-10 lg:px-4 lg:w-1/3"
               >
-                <div className="relative h-16 bg-white">
+                <div className="relative h-16 bg-white dark:bg-black">
                   <img
                     style={{
                       position: "absolute",
@@ -40,8 +40,8 @@ const DevListPage: React.FC<DevListPageProps> = (props) => {
                     alt=""
                   />
                 </div>
-                <article className="overflow-hidden rounded-lg shadow-md bg-white">
-                  <div className="px-6 pb-4 bg-white flex flex-col items-center">
+                <article className="overflow-hidden rounded-lg shadow-md bg-white dark:bg-black">
+                  <div className="px-6 pb-4 bg-white dark:bg-black flex flex-col items-center">
                     <div className="text-xl text-center">
                       {user.name || user.login}
                     </div>

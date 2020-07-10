@@ -13,13 +13,13 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
   const currUser = data?.allUsers.find((user) => user.login === username);
   var userProject: AllProject[] = [];
   data?.allProjects.map((project) => {
-    if (currUser?.projects.includes(project.node.id)) {
+    if (currUser?.projects.includes(project.node?.id)) {
       userProject.push(project);
     }
   });
   return (
-    <div className="my-8 container mx-auto">
-      <div className="rounded-lg shadow-md bg-white mb-4 py-6 px-8 ">
+    <div className="my-8 container px-4 md:px-0 mx-auto">
+      <div className="rounded-lg shadow-md bg-white dark:bg-black mb-4 py-6 px-8 ">
         <div className="flex flex-row justify-between items-center ">
           <div className="flex flex-row items-center">
             <Link to={`/dev/${currUser?.login}`}>
@@ -48,76 +48,48 @@ const DevDetailsPage: React.FC<DevDetailsPageProps> = (props) => {
           </div>
         </div>
       </div>
-      {/* <div className="bg-white rounded-lg p-6 container mx-auto shadow-md">
-        <div className="flex items-center">
-          <img
-            className="w-24 h-24 mr-6 rounded-full bg-indigo-800"
-            src={currUser?.avatarUrl}
-            alt=""
-          />
-          <div>
-            <div className="text-xl">{currUser?.name || currUser?.login}</div>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://github.com/${currUser?.login}`}
-              className="text-indigo-800"
+      <h2 className="mt-10 text-lg text-gray-600 mb-2">Submissions</h2>
+      <div className="card-grid">
+        {userProject &&
+          Object.values(userProject).map((project) => (
+            <Link
+              key={project.node.id}
+              to={{
+                pathname: `/submission/${project.node.number}`,
+                state: { reviewMode: false },
+              }}
+              className="rounded shadow-md p-6 bg-white dark:bg-black flex justify-between flex-col"
             >
-              @{currUser?.login}
-            </a>
-            {currUser?.isFinalist && (
-              <span className="inline-block bg-indigo-800 text-white text-xs px-2 rounded-full uppercase font-semibold tracking-wide align-bottom">
-                Finalist
-              </span>
-            )}
-          </div>
-        </div>
-      </div> */}
-
-      <div className="container mx-auto">
-        <h2 className="mt-10 text-lg text-gray-600 mb-2">Submissions</h2>
-        <div className="card-grid">
-          {userProject &&
-            Object.values(userProject).map((project) => (
-              <Link
-                key={project.node.id}
-                to={{
-                  pathname: `/submission/${project.node.number}`,
-                  state: { reviewMode: false },
-                }}
-                className="rounded shadow-md px-6 py-6 bg-white w-full flex justify-between flex-col"
-              >
-                <div>
-                  {!!project.node.title?.length && (
-                    <div className="text-xl font-bold mb-4">
-                      {project.node.title}
-                    </div>
-                  )}
-                  <ReactMarkdown
-                    className="text-sm text-gray-600 formatted"
-                    escapeHtml={false}
-                    source={
-                      project.node.body.length > maxlimit
-                        ? project.node.body
-                            .replace(/(?:\r\n|\r|\n)/g, "<br />")
-                            .substring(0, maxlimit - 3) + "..."
-                        : project.node.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
-                    }
-                  />
-                </div>
-                <div className="flex mt-4 items-center">
-                  <img
-                    src={project.node.author.avatarUrl}
-                    alt={project.node.author.name || project.node.author.login}
-                    className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
-                  />
-                  <div className="text-base flex-1">
-                    {project.node.author.name || project.node.author.login}
+              <div>
+                {!!project.node.title?.length && (
+                  <div className="text-xl font-bold mb-4">
+                    {project.node.title}
                   </div>
+                )}
+                <ReactMarkdown
+                  className="text-sm text-gray-600 formatted"
+                  escapeHtml={false}
+                  source={
+                    project.node.body.length > maxlimit
+                      ? project.node.body
+                          .replace(/(?:\r\n|\r|\n)/g, "<br />")
+                          .substring(0, maxlimit - 3) + "..."
+                      : project.node.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
+                  }
+                />
+              </div>
+              <div className="flex mt-4 items-center">
+                <img
+                  src={project.node.author.avatarUrl}
+                  alt={project.node.author.name || project.node.author.login}
+                  className="h-8 w-8 md:h-8 md:w-8 rounded-full mx-auto md:mx-0 md:mr-6"
+                />
+                <div className="text-base flex-1">
+                  {project.node.author.name || project.node.author.login}
                 </div>
-              </Link>
-            ))}
-        </div>
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );
