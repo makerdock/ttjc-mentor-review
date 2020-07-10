@@ -60,7 +60,7 @@ const ContactPage: React.FC<ContactPageProps> = (props) => {
 
           <div className="flex justify-center items-center mt-4 text-gray-700">
             <a
-              href="https://workofutkarsh.com/"
+              href="https://twitter.com/viral_sangani_"
               target="_blank"
               rel="noopener noreferrer"
               className="px-2 text-sm"
@@ -72,7 +72,7 @@ const ContactPage: React.FC<ContactPageProps> = (props) => {
               />
             </a>
             <a
-              href="https://workofutkarsh.com/"
+              href="https://viralsangani.me/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-2 text-sm"
@@ -84,7 +84,7 @@ const ContactPage: React.FC<ContactPageProps> = (props) => {
               />
             </a>
             <a
-              href="https://workofutkarsh.com/"
+              href="https://github.com/viral-sangani"
               target="_blank"
               rel="noopener noreferrer"
               className="px-2 text-sm"
