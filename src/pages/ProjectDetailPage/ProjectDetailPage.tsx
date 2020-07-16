@@ -77,7 +77,7 @@ const ProjectDetailPage: React.FC<HomeProps> = (props: HomeProps) => {
             </Link>
             <div>
               <div className="text-xl">
-                <Link to={`dev/${currProject?.node.author.login}`}>
+                <Link to={`/dev/${currProject?.node.author.login}`}>
                   {currProject?.node.author.name || currProject?.node.author.id}
                 </Link>
               </div>
